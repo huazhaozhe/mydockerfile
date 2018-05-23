@@ -1,5 +1,42 @@
-FROM myubuntu16:0.3
+FROM ubuntu:16.04
 MAINTAINER zhe <1655604975@qq.com>
+
+# 环境
+RUN set -x; \
+        apt-get update \
+        && apt-get install -y --no-install-recommends \
+        locales \
+        fontconfig \
+        fonts-wqy-zenhei \
+        fonts-wqy-microhei \
+        curl \
+        wget \
+        vim \
+        python \
+        python-pip \
+        python3 \
+        python3-pip \
+        python-setuptools \
+        python3-setuptools \
+        tree
+        
+RUN pip install wheel -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip3 install wheel -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 时区
+COPY Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' > /etc/timezone
+
+# 中文
+RUN locale-gen zh_CN.UTF-8 && \
+  DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+RUN locale-gen zh_CN.UTF-8  
+ENV LANG zh_CN.UTF-8  
+ENV LANGUAGE zh_CN:zh  
+ENV LC_ALL zh_CN.UTF-8
+
+
+
 
 # Generate locale C.UTF-8 for postgres and general locale data
 # ENV LANG C.UTF-8
