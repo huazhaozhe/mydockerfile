@@ -23,9 +23,6 @@ RUN set -x; \
         && cp wkhtmltox/bin/* /usr/local/bin/ \
         && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/
 
-# 测试wkhtmltox
-RUN wkhtmltoxpdf
-
 # Install Odoo
 ENV ODOO_VERSION 11.0
 ENV ODOO_RELEASE 20180122
